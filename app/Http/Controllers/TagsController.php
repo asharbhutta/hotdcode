@@ -10,7 +10,7 @@ class TagsController extends Controller
 {
     public function admin(Request $request)
     {
-        //tests
+
         $tags = Tags::searchTags($request);
         return view('tags.admin')->with('data', $tags)->with('title', "Tags");
     }
