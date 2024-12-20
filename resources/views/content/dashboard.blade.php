@@ -13,7 +13,7 @@ use App\Models\Content;
                     <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                         <i class="fa fa-eye fa-3x text-primary"></i>
                         <div class="ms-3">
-                            <p class="mb-2 fw-bold">Today Views</p>
+                            <p class="mb-2 fw-bold">Today Views !!</p>
                             <h6 class="mb-0 text-right">{{$todayStats["views"]}}</h6>
                         </div>
                     </div>
@@ -185,7 +185,7 @@ use App\Models\Content;
                     </div>
                 </div>
             </div>
-          
+
         </div>
         <!-- Sales Chart End -->
 
