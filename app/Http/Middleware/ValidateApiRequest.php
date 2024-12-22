@@ -12,22 +12,22 @@ class ValidateApiRequest
     {
         // Retrieve API key and platform token from headers
         $apiKey = $request->header('API_KEY');
-        $platformToken = $request->header('PLATFORM_TOKEN');
+        $platformToken = $request->header('X-Platform-Key');
 
 
         // Check if the API key and platform token are provided
-        if (!$apiKey || !$platformToken) {
+        if (!$platformToken) {
             return response()->json([
                 'message' => 'API key and platform token are required.'
             ], Response::HTTP_UNAUTHORIZED);
         }
 
         // Validate the API key (example: checking against a stored value or environment variable)
-        if ($apiKey !== env('API_KEY')) {
-            return response()->json([
-                'message' => 'Invalid API key.'
-            ], Response::HTTP_UNAUTHORIZED);
-        }
+        // if ($apiKey !== env('API_KEY')) {
+        //     return response()->json([
+        //         'message' => 'Invalid API key.'
+        //     ], Response::HTTP_UNAUTHORIZED);
+        // }
 
         // Validate the platform token (example: checking against a stored value or database)
         if ($platformToken !== env('PLATFORM_TOKEN')) {
