@@ -12,7 +12,8 @@ class ValidateApiRequest
     {
         // Retrieve API key and platform token from headers
         $apiKey = $request->header('API_KEY');
-        $platformToken = $request->header('PLATFORM_KEY');
+        $platformToken = $request->header('PLATFORM_TOKEN');
+
 
         // Check if the API key and platform token are provided
         if (!$apiKey || !$platformToken) {
