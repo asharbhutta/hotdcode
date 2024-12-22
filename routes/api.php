@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('validate.api')->group(function () {
+//Route::middleware('validate.api')->group(function () {
 
 Route::get('heart-beat', [ApiController::class, 'heartBeat']);
 Route::get('get-data', [ApiController::class, 'getAllData']);
@@ -25,7 +25,7 @@ Route::get('get-post-tags', [ApiController::class, 'getPostTags']);
 Route::get('get-post-tags-name', [ApiController::class, 'getPostTagsName']);
 Route::get('update-metric/{id}/{metric}', [ApiController::class, 'updateContentMetric']);
 
-});
+//});
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
