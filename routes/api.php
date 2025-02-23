@@ -23,7 +23,8 @@ Route::middleware('validate.api')->group(function () {
     Route::get('get-tags', [ApiController::class, 'getTags']);
     Route::get('get-post-tags', [ApiController::class, 'getPostTags']);
     Route::get('get-post-tags-name', [ApiController::class, 'getPostTagsName']);
-    Route::get('update-metric/{id}/{metric}', [ApiController::class, 'updateContentMetric']);
+    Route::get('get-hadith-of-tag', [ApiController::class, 'getAhadithOfCategory']);
+    Route::get('update-metric', [ApiController::class, 'updateContentMetric']);
 });
 
 

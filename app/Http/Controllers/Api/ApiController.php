@@ -164,12 +164,14 @@ class ApiController extends Controller
         ]);
     }
 
-    public function updateContentMetric(Request $request, string $id, string $metric)
+    public function updateContentMetric(Request $request)
     {
         // Validate the incoming request
         $request->validate([
             'id' => 'required|integer|exists:contents,id',
+            'metric' => 'required'
         ]);
+
 
         // Check if the metric is valid
         if (!in_array($metric, ['downloads', 'shares'])) {
@@ -196,5 +198,65 @@ class ApiController extends Controller
             // Execute the query and return the result
             return DB::select($query, $bindings);
         });
+    }
+
+
+    public function getExplaination(Request $request)
+    {
+        $explaination = '';
+
+        if ($request->id) {
+
+            $content = content::where('id', '=', $request->id)->first();
+            $explaination = $content->explaination;
+        }
+
+        return json_encode(array('explaination' => $explaination));
+    }
+
+
+    public function getAhadithOfCategory(Request $request)
+    {
+        $tagId = $request->id;
+
+        // Fetch posts associated with the tag
+        $items = DB::table('contents')
+            ->join('posttags', 'contents.id', '=', 'posttags.content_id')
+            ->where('posttags.tag_id', $tagId)
+            ->select(
+                'contents.id',
+                'contents.title',
+                'contents.url',
+                'contents.ios_url',
+                'contents.thumb_url',
+                'contents.approved',
+                'contents.posted',
+                'contents.created_at',
+                'contents.updated_at',
+                'contents.user_id',
+                'contents.scheduled_at',
+                'contents.comment'
+            )
+            ->get();
+
+        // Mark all retrieved items as "TAGGED" and optimize data handling
+        foreach ($items as $item) {
+            $item->comment = "TAGGED";
+            $item->created_at = null;
+            $item->updated_at = null;
+
+            if (!empty($item->ios_url)) {
+                $item->url = $item->ios_url;
+            }
+
+            if (empty($item->thumb_url)) {
+                $item->thumb_url = $item->url;
+            }
+        }
+
+        // Log the tag view
+        DB::table('tag_views')->insert(['content_id' => $tagId]);
+
+        return response()->json(['items' => $items->reverse()]);
     }
 }
